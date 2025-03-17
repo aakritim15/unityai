@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { getFirestore, collection, query, where, getDocs } from "firebase/firestore"
 import { getAuth } from "firebase/auth" // Import Firebase Auth
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { FiMessageCircle, FiUser } from "react-icons/fi" // Chatbot & Account Icons
 
 const Transactions = () => {
   const [upiTransactions, setUpiTransactions] = useState([])
@@ -65,63 +66,82 @@ const Transactions = () => {
   }
 
   return (
-    <div className="space-y-10 p-6">
-      <h1 className="text-2xl font-bold">Transactions</h1>
+    <div className="min-h-screen bg-gray-100">
+      {/* Header Section (Copied from Dashboard) */}
+      <header className="bg-white shadow-md p-4 flex justify-between items-center">
+        <h1 className="text-xl font-semibold text-gray-800">Transactions</h1>
+        <div className="flex items-center space-x-6">
+          {/* Chatbot Icon */}
+          <button className="text-gray-600 hover:text-blue-600 transition">
+            <FiMessageCircle size={24} />
+          </button>
 
-      {/* UPI Transactions Table */}
-      <div>
-        <h2 className="text-xl font-semibold mb-4">UPI Transactions</h2>
-        <Table>
-          <TableCaption>A list of your UPI transactions.</TableCaption>
-          <TableHeader>
-            <TableRow>
-              <TableHead>UPI ID</TableHead>
-              <TableHead>Amount (₹)</TableHead>
-              <TableHead>Note</TableHead>
-              <TableHead>Timestamp</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {upiTransactions.map((transaction) => (
-              <TableRow key={transaction.id}>
-                <TableCell className="font-medium">{transaction.upiId}</TableCell>
-                <TableCell>{transaction.amount}</TableCell>
-                <TableCell>{transaction.note}</TableCell>
-                <TableCell>{transaction.timestamp?.toDate().toLocaleString()}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </div>
+          {/* Account Icon */}
+          <button className="text-gray-600 hover:text-blue-600 transition">
+            <FiUser size={24} />
+          </button>
+        </div>
+      </header>
 
-      {/* Bank Transactions Table */}
-      <div>
-        <h2 className="text-xl font-semibold mb-4">Bank Transactions</h2>
-        <Table>
-          <TableCaption>A list of your bank transactions.</TableCaption>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Beneficiary</TableHead>
-              <TableHead>Account Number</TableHead>
-              <TableHead>IFSC Code</TableHead>
-              <TableHead>Amount (₹)</TableHead>
-              <TableHead>Note</TableHead>
-              <TableHead>Timestamp</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {bankTransactions.map((transaction) => (
-              <TableRow key={transaction.id}>
-                <TableCell className="font-medium">{transaction.beneficiary}</TableCell>
-                <TableCell>{transaction.accountNumber}</TableCell>
-                <TableCell>{transaction.ifsc}</TableCell>
-                <TableCell>{transaction.amount}</TableCell>
-                <TableCell>{transaction.note}</TableCell>
-                <TableCell>{transaction.timestamp?.toDate().toLocaleString()}</TableCell>
+      {/* Transactions Section */}
+      <div className="space-y-10 p-6">
+        <h1 className="text-2xl font-bold">Transactions</h1>
+
+        {/* UPI Transactions Table */}
+        <div>
+          <h2 className="text-xl font-semibold mb-4">UPI Transactions</h2>
+          <Table>
+            <TableCaption>A list of your UPI transactions.</TableCaption>
+            <TableHeader>
+              <TableRow>
+                <TableHead>UPI ID</TableHead>
+                <TableHead>Amount (₹)</TableHead>
+                <TableHead>Note</TableHead>
+                <TableHead>Timestamp</TableHead>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHeader>
+            <TableBody>
+              {upiTransactions.map((transaction) => (
+                <TableRow key={transaction.id}>
+                  <TableCell className="font-medium">{transaction.upiId}</TableCell>
+                  <TableCell>{transaction.amount}</TableCell>
+                  <TableCell>{transaction.note}</TableCell>
+                  <TableCell>{transaction.timestamp?.toDate().toLocaleString()}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+
+        {/* Bank Transactions Table */}
+        <div>
+          <h2 className="text-xl font-semibold mb-4">Bank Transactions</h2>
+          <Table>
+            <TableCaption>A list of your bank transactions.</TableCaption>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Beneficiary</TableHead>
+                <TableHead>Account Number</TableHead>
+                <TableHead>IFSC Code</TableHead>
+                <TableHead>Amount (₹)</TableHead>
+                <TableHead>Note</TableHead>
+                <TableHead>Timestamp</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {bankTransactions.map((transaction) => (
+                <TableRow key={transaction.id}>
+                  <TableCell className="font-medium">{transaction.beneficiary}</TableCell>
+                  <TableCell>{transaction.accountNumber}</TableCell>
+                  <TableCell>{transaction.ifsc}</TableCell>
+                  <TableCell>{transaction.amount}</TableCell>
+                  <TableCell>{transaction.note}</TableCell>
+                  <TableCell>{transaction.timestamp?.toDate().toLocaleString()}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
       </div>
     </div>
   )
