@@ -42,9 +42,11 @@ export default function Drawer() {
     <div className="w-64 min-w-64 border-r bg-background h-screen flex flex-col">
       <div className="px-6 py-3 border-b">
         <NavLink to="/dashboard" className="flex items-center gap-2">
-          <div className="h-7 w-7 rounded-full bg-primary flex items-center justify-center">
-            <span className="text-primary-foreground font-bold text-sm">U</span>
-          </div>
+        <div className="h-7 w-7 rounded-full bg-primary flex items-center justify-center">
+          <span className="text-primary-foreground font-bold text-sm">
+            U<sub>AI</sub>
+          </span>
+        </div>
           <span className="font-bold text-xl">UnityAI</span>
         </NavLink>
       </div>
