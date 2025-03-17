@@ -18,7 +18,7 @@ function SignUp() {
 
   return (
     <div className="">
-      <LoginUI 
+      <Login 
         googleText="Sign Up with Google" 
         loginText="Sign Up" 
         heading="Create an Account" 

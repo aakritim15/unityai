@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 
-const LoginUI = ({
+const Login = ({
   heading = "Shadcnblocks.com",
   subheading = "Welcome back",
   logo = {
@@ -41,4 +41,4 @@ const LoginUI = ({
   );
 };
 
-export default LoginUI;
+export default Login;
