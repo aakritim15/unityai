@@ -7,6 +7,7 @@ import Transactions from "@/pages/Transactions";
 import Loans from "@/pages/Loans";
 import AccountInfo from "@/pages/AccountInfo";
 import Settings from "@/pages/Settings";
+import NotFound from "@/pages/NotFound";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
         path: "settings",
         element: <Settings />,
       },
+      {
+        path: "notfound",
+        element: <NotFound />,
+      }
     ],
   },
   {
