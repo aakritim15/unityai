@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import { PieChart, Pie, Tooltip, Cell } from "recharts";
 import { FiMessageCircle, FiUser } from "react-icons/fi";
 import { useState } from "react";
-import Chatbot from "./Chatbot"; // Ensure this is imported correctly
 
 const spendingData = {
   shopping: 3,
