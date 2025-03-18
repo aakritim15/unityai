@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-
+import { getAuth } from "firebase/auth";
 
 const LoanApplicationForm = ({ loanAmount, onSubmit, onCancel }) => {
   const [formData, setFormData] = React.useState({
@@ -82,7 +82,7 @@ const LoanApplicationForm = ({ loanAmount, onSubmit, onCancel }) => {
                   <SelectContent>
                     <SelectItem value="male">Male</SelectItem>
                     <SelectItem value="female">Female</SelectItem>
-                    <SelectItem value="other">Other</SelectItem>
+                    
                   </SelectContent>
                 </Select>
               </div>
@@ -97,7 +97,7 @@ const LoanApplicationForm = ({ loanAmount, onSubmit, onCancel }) => {
                     <SelectItem value="single">Single</SelectItem>
                     <SelectItem value="married">Married</SelectItem>
                     <SelectItem value="divorced">Divorced</SelectItem>
-                    <SelectItem value="widowed">Widowed</SelectItem>
+                    
                   </SelectContent>
                 </Select>
               </div>
@@ -116,15 +116,26 @@ const LoanApplicationForm = ({ loanAmount, onSubmit, onCancel }) => {
                   <SelectContent>
                     <SelectItem value="salaried">Salaried</SelectItem>
                     <SelectItem value="self-employed">Self-Employed</SelectItem>
-                    <SelectItem value="business-owner">Business Owner</SelectItem>
-                    <SelectItem value="freelancer">Freelancer</SelectItem>
+                    
                   </SelectContent>
                 </Select>
               </div>
               
               <div className="space-y-2">
                 <Label htmlFor="industry">Industry</Label>
-                <Input id="industry" name="industry" value={formData.industry} onChange={handleChange} />
+                <Select name="industry" onValueChange={(value) => handleSelectChange('industry', value)}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="it">IT</SelectItem>
+                    <SelectItem value="healthcare">Healthcare</SelectItem>
+                    <SelectItem value="retail">Retail</SelectItem>
+                    <SelectItem value="manufacturing">Manufacturing</SelectItem>
+                    <SelectItem value="education">Education</SelectItem>
+                  </SelectContent>
+                </Select>
+                
               </div>
               
               <div className="space-y-2">
@@ -148,7 +159,7 @@ const LoanApplicationForm = ({ loanAmount, onSubmit, onCancel }) => {
                     <SelectItem value="high-school">High School</SelectItem>
                     <SelectItem value="bachelor">Bachelor's Degree</SelectItem>
                     <SelectItem value="master">Master's Degree</SelectItem>
-                    <SelectItem value="doctorate">Doctorate</SelectItem>
+                    <SelectItem value="phd">PhD</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -225,7 +236,7 @@ const LoanApplicationForm = ({ loanAmount, onSubmit, onCancel }) => {
                     <SelectItem value="personal">Personal Loan</SelectItem>
                     <SelectItem value="home">Home Loan</SelectItem>
                     <SelectItem value="education">Education Loan</SelectItem>
-                    <SelectItem value="vehicle">Vehicle Loan</SelectItem>
+                    <SelectItem value="car">Car Loan</SelectItem>
                     <SelectItem value="business">Business Loan</SelectItem>
                   </SelectContent>
                 </Select>
@@ -249,22 +260,29 @@ const LoanApplicationForm = ({ loanAmount, onSubmit, onCancel }) => {
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="loanTenure">Loan Tenure (Years)</Label>
-                <Select name="loanTenure" onValueChange={(value) => handleSelectChange('loanTenure', value)}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select tenure" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="1">1 Year</SelectItem>
-                    <SelectItem value="2">2 Years</SelectItem>
-                    <SelectItem value="3">3 Years</SelectItem>
-                    <SelectItem value="5">5 Years</SelectItem>
-                    <SelectItem value="10">10 Years</SelectItem>
-                  </SelectContent>
-                </Select>
+              
+                <Label htmlFor="loanTenure">Loan Tenure (Months)</Label>
+                <input
+                  type="number"
+                  name="loanTenure"
+                  min="6"
+                  step="6"
+                  placeholder="Enter loan tenure in months (multiple of 6)"
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    if (value % 6 === 0) {
+                      handleSelectChange('loanTenure', value);
+                    } else {
+                      // Optionally show an error message or reset invalid value
+                      console.log("Please enter a multiple of 6.");
+                    }
+                  }}
+                />
+              </div>
+
               </div>
             </div>
-          </div>
+          
           
           {/* Financial Information */}
           <div className="space-y-4">
@@ -312,7 +330,7 @@ const LoanApplicationForm = ({ loanAmount, onSubmit, onCancel }) => {
                   name="dtiRatio" 
                   type="number" 
                   min="0" 
-                  max="100" 
+                  max="1" 
                   value={formData.dtiRatio} 
                   onChange={handleChange} 
                 />

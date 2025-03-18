@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FiMessageCircle, FiUser } from "react-icons/fi"; // Chatbot & Account Icons
-
+import { getAuth } from "firebase/auth";
 const AccountInfo = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
@@ -11,7 +11,7 @@ const AccountInfo = () => {
     aadhar: "",
     age: "",
     salary: "",
-    balance: 1000, // Initial balance
+    balance: 50000, // Initial balance
     bankAccount: "",
     employmentType: "",
     accountType: "",

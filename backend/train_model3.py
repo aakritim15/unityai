@@ -7,7 +7,6 @@ Original file is located at
     https://colab.research.google.com/drive/1PIODvXoHJ_xztfKvRoduWzbmM1Mk5RRJ
 """
 
-!pip install pandas numpy faker scikit-learn
 
 import random
 from faker import Faker
@@ -56,17 +55,17 @@ for cat in categories:
 # Modified recommendation function to return multiple cards if conditions are met
 def assign_recommendation(row):
     recommendations = []
-    if row.get("shopping", 0) > 3:
+    if row.get("shopping", 0) > 1:
         recommendations.append("Credit Card Cashback")
-    if row.get("travel", 0) > 3:
+    if row.get("travel", 0) > 2:
         recommendations.append("Travel Rewards Credit Card")
-    if row.get("dining", 0) > 4:
+    if row.get("dining", 0) > 3:
         recommendations.append("Dining Discount Card")
     if row.get("bills", 0) > 2:
         recommendations.append("Utility Rewards Card")
     if row.get("groceries", 0) > 3:
         recommendations.append("Debit Card with Grocery Cashback")
-    if row.get("entertainment", 0) > 3:
+    if row.get("entertainment", 0) > 2:
         recommendations.append("Entertainment Offers Card")
 
     return ", ".join(recommendations) if recommendations else "No recommendation"
