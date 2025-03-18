@@ -1,17 +1,37 @@
-import React, { useState } from 'react';
-import { FiMessageCircle, FiUser } from "react-icons/fi"; // Chatbot & Account Icons
-import LoanCard from '../components/LoanCard';
-import LoanApplicationForm from '../components/LoanApplicationForm';
+import React, { useState } from "react";
+import { FiMessageCircle, FiUser } from "react-icons/fi";
+import LoanApplicationForm from "../components/LoanApplicationForm";
 
-const Loan = () => {
+const loanOffers = [
+  { amount: 200000, interestRate: 10, tenure: 1 },
+  { amount: 500000, interestRate: 15, tenure: 2 },
+  { amount: 750000, interestRate: 12, tenure: 3 },
+  { amount: 100000, interestRate: 10.5, tenure: 4 },
+  { amount: 150000, interestRate: 9, tenure: 5 },
+  { amount: 200000, interestRate: 8.5, tenure: 6 },
+];
+
+const LoanCard = ({ amount, interestRate, tenure, onApply }) => {
+  return (
+    <div className="bg-white shadow-md rounded-2xl p-5 w-64 text-center transition-transform transform hover:scale-105">
+      <h3 className="text-lg font-semibold text-gray-700">Loan Offer</h3>
+      <p className="text-2xl font-bold text-blue-600 mt-2">₹{amount.toLocaleString()}</p>
+      <p className="text-gray-600 text-sm mt-1">Interest Rate: {interestRate}%</p>
+      <p className="text-gray-600 text-sm">Tenure: {tenure} years</p>
+      <button
+        className="bg-black text-white px-4 py-2 rounded-lg mt-3 hover:bg-gray-800"
+        onClick={() => onApply(amount)}
+      >
+        Apply Now
+      </button>
+    </div>
+  );
+};
+
+const LoanOffers = () => {
+  const [isChatOpen, setIsChatOpen] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [selectedLoanAmount, setSelectedLoanAmount] = useState(0);
-  const [isChatOpen, setIsChatOpen] = useState(false); // Chatbot State
-
-  const loanOptions = [
-    { amount: 20000, interestRate: 10, tenure: 1 },
-    { amount: 50000, interestRate: 15, tenure: 2 },
-  ];
 
   const handleApplyLoan = (amount) => {
     setSelectedLoanAmount(amount);
@@ -20,7 +40,7 @@ const Loan = () => {
   };
 
   const handleSubmitApplication = (formData) => {
-    console.log('Application submitted:', formData);
+    console.log("Application submitted:", formData);
     alert(`Loan of ₹${formData.loanAmount} applied successfully!`);
     setShowForm(false);
   };
@@ -33,11 +53,11 @@ const Loan = () => {
     <div className="min-h-screen bg-gray-100">
       {/* Header Section */}
       <header className="bg-white shadow-md p-4 flex justify-between items-center">
-        <h1 className="text-xl font-semibold text-gray-800">Loan</h1>
+        <h1 className="text-xl font-semibold text-gray-800">Payments</h1>
         <div className="flex items-center space-x-6">
           {/* Chatbot Icon */}
-          <button 
-            onClick={() => setIsChatOpen(!isChatOpen)} 
+          <button
+            onClick={() => setIsChatOpen(!isChatOpen)}
             className="text-gray-600 hover:text-blue-600 transition"
           >
             <FiMessageCircle size={24} />
@@ -51,23 +71,17 @@ const Loan = () => {
       </header>
 
       {/* Main Content */}
-      <div className="container mx-auto px-4 py-8">
+      <div className="mt-8 p-4">
         {showForm ? (
-          <LoanApplicationForm 
-            loanAmount={selectedLoanAmount} 
+          <LoanApplicationForm
+            loanAmount={selectedLoanAmount}
             onSubmit={handleSubmitApplication}
             onCancel={handleCancelApplication}
           />
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {loanOptions.map((loan, index) => (
-              <LoanCard 
-                key={index}
-                amount={loan.amount}
-                interestRate={loan.interestRate}
-                tenure={loan.tenure}
-                onApply={handleApplyLoan}
-              />
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {loanOffers.map((offer, index) => (
+              <LoanCard key={index} {...offer} onApply={handleApplyLoan} />
             ))}
           </div>
         )}
@@ -89,4 +103,4 @@ const Loan = () => {
   );
 };
 
-export default Loan;
+export default LoanOffers;

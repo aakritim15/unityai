@@ -84,7 +84,7 @@ const Payments = () => {
     <div className="min-h-screen bg-gray-100">
       {/* Header Section */}
       <header className="bg-white shadow-md p-4 flex justify-between items-center">
-        <h1 className="text-xl font-semibold text-gray-800">Dashboard</h1>
+        <h1 className="text-xl font-semibold text-gray-800">Payments</h1>
         <div className="flex items-center space-x-6">
           {/* Chatbot Icon */}
           <button 
