@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { PieChart, Pie, Tooltip, Cell } from "recharts";
 import { FiMessageCircle, FiUser } from "react-icons/fi"; // Chatbot & Account Icons
 import { useState } from "react";
-import CLoan from "../pages/Credit"; 
+
 // Updated spendingData with matching fields
 const spendingData = {
   shopping: 3,
@@ -168,7 +168,7 @@ function Dashboard() {
               ✖
             </button>
           </div>
-          <p className="text-sm text-gray-600 mt-2">How can I assist you today?</p>
+          <Chatbot /> {/* Embed the Chatbot component here */}
         </div>
       )}
     </div>
