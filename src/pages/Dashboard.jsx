@@ -5,18 +5,47 @@ import { FiMessageCircle, FiUser } from "react-icons/fi"; // Chatbot & Account I
 import { useState } from "react";
 import Chatbot from "../components/Chatbot"; // Ensure this is correctly imported
 
+// Updated spendingData with matching fields
+const spendingData = {
+  shopping: 3,
+  travel: 5,
+  dining: 1,
+  bills: 2,
+  groceries: 1,
+  entertainment: 2,
+};
+
+// Updated data to match spendingData categories
 const data = [
-  { name: "Food", value: 400 },
-  { name: "Education", value: 300 },
-  { name: "Travel", value: 200 },
-  { name: "Saving", value: 500 },
-  { name: "Miscellaneous", value: 100 },
+  { name: "Shopping", value: 300 },
+  { name: "Travel", value: 500 },
+  { name: "Dining", value: 200 },
+  { name: "Bills", value: 150 },
+  { name: "Groceries", value: 100 },
+  { name: "Entertainment", value: 250 },
 ];
+
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#A28EFF"];
 
 function Dashboard() {
   const [isChatOpen, setIsChatOpen] = useState(false);
+
+  // Logic to generate recommendations based on user spending data
+  const generateRecommendations = (spendingData) => {
+    let recommendations = [];
+
+    if (spendingData.shopping > 1) recommendations.push("Credit Card Cashback");
+    if (spendingData.travel > 2) recommendations.push("Travel Rewards Credit Card");
+    if (spendingData.dining > 3) recommendations.push("Dining Discount Card");
+    if (spendingData.bills > 2) recommendations.push("Utility Rewards Card");
+    if (spendingData.groceries > 3) recommendations.push("Debit Card with Grocery Cashback");
+    if (spendingData.entertainment > 2) recommendations.push("Entertainment Offers Card");
+
+    return recommendations;
+  };
+
+  const recommendedCards = generateRecommendations(spendingData);
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -114,6 +143,21 @@ function Dashboard() {
             <Button size="sm">Apply Now</Button>
           </CardContent>
         </Card>
+
+        {/* Recommended Credit Cards Section */}
+        {recommendedCards.length > 0 && (
+          <Card className="flex justify-items-center ">
+            <CardContent>
+              <h2 className="text-md font-medium mb-3">Recommended Credit Cards</h2>
+              <ul className="mt-2 space-y-2 text-sm">
+                {recommendedCards.map((card, index) => (
+                  <li key={index} className="text-gray-700">{card}</li>
+                ))}
+              </ul>
+              
+            </CardContent>
+          </Card>
+        )}
       </div>
 
       {/* Chatbot Modal */}
