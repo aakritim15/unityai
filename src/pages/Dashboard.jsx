@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { PieChart, Pie, Tooltip, Cell } from "recharts";
 import { FiMessageCircle, FiUser } from "react-icons/fi"; // Chatbot & Account Icons
 import { useState } from "react";
+import Chatbot from "../components/Chatbot"; // Ensure this is correctly imported
 
 const data = [
   { name: "Food", value: 400 },
@@ -82,7 +83,7 @@ function Dashboard() {
           </CardContent>
         </Card>
 
-        {/* Recent Transactions List - Adjusted Size */}
+        {/* Recent Transactions List */}
         <Card className="p-4 shadow-sm lg:col-span-2">
           <CardContent>
             <h2 className="text-md font-medium mb-3">Recent Transactions</h2>
@@ -124,7 +125,7 @@ function Dashboard() {
               ✖
             </button>
           </div>
-          <p className="text-sm text-gray-600 mt-2">How can I assist you today?</p>
+          <Chatbot /> {/* Embed the Chatbot component here */}
         </div>
       )}
     </div>
