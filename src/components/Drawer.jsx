@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
 import { cn } from "../lib/utils";
+import CLoan from "./pages/Credit";
 
 export default function Drawer() {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ export default function Drawer() {
     { href: "/payment", label: "Payment Gateway", icon: DollarSign, id: "payment" },
     { href: "/transactions", label: "Transactions", icon: ArrowRightLeft, id: "transactions" },
     { href: "/loans", label: "Loans", icon: CreditCard, id: "loans" },
-    { href: "/credit", label: "Credit", icon: CreditCard, id: "credit" },
+    { href: "/credit", label: "Credit", icon: CreditCard, id: "credit" }, 
     { href: "/accountinfo", label: "Account Info", icon: User, id: "accountinfo" },
   ];
 
