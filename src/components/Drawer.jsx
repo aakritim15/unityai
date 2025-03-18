@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
 import { cn } from "../lib/utils";
-import CLoan from "./pages/Credit";
+import CreditCardOffers from "@/pages/Credit";
 
 export default function Drawer() {
   const navigate = useNavigate();

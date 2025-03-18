@@ -1,45 +1,46 @@
-import React, { useState } from 'react';
-import { FiMessageCircle, FiUser } from "react-icons/fi"; // Chatbot & Account Icons
+import React, { useState } from "react";
+import { FiMessageCircle, FiUser } from "react-icons/fi";
+import CreditCardApplicationForm from "../components/CreditCardApplicationForm";
 
-const CLoan = () => {
+const creditCardOffers = [
+  { name: "Platinum Card", limit: 500000, interestRate: 14, annualFee: 3000 },
+  { name: "Gold Card", limit: 300000, interestRate: 12, annualFee: 2000 },
+  { name: "Silver Card", limit: 150000, interestRate: 10, annualFee: 1000 },
+  { name: "Titanium Card", limit: 700000, interestRate: 16, annualFee: 4000 },
+  { name: "Business Card", limit: 1000000, interestRate: 18, annualFee: 5000 },
+];
+
+const CreditCardCard = ({ name, limit, interestRate, annualFee, onApply }) => {
+  return (
+    <div className="bg-white shadow-md rounded-2xl p-5 w-64 text-center transition-transform transform hover:scale-105">
+      <h3 className="text-lg font-semibold text-gray-700">{name}</h3>
+      <p className="text-2xl font-bold text-blue-600 mt-2">Limit: ₹{limit.toLocaleString()}</p>
+      <p className="text-gray-600 text-sm mt-1">Interest Rate: {interestRate}%</p>
+      <p className="text-gray-600 text-sm">Annual Fee: ₹{annualFee}</p>
+      <button
+        className="bg-black text-white px-4 py-2 rounded-lg mt-3 hover:bg-gray-800"
+        onClick={() => onApply(name)}
+      >
+        Apply Now
+      </button>
+    </div>
+  );
+};
+
+const CreditCardOffers = () => {
+  const [isChatOpen, setIsChatOpen] = useState(false);
   const [showForm, setShowForm] = useState(false);
-  const [isChatOpen, setIsChatOpen] = useState(false); // Chatbot State
+  const [selectedCard, setSelectedCard] = useState("");
 
-  // State to manage form inputs
-  const [formData, setFormData] = useState({
-    Transaction_Amount: '',
-    Transaction_Type: '',
-    Location: '',
-    Time_of_Day: '',
-    Card_Type: '',
-    Previous_Fraud_History: '',
-    Account_Age: '',
-    Credit_Utilization: '',
-    Fraudulent: '',
-  });
-
-  const [fraudResult, setFraudResult] = useState(null);
-
-  const handleApplyLoan = () => {
+  const handleApplyCard = (cardName) => {
+    setSelectedCard(cardName);
     setShowForm(true);
     window.scrollTo(0, 0);
   };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: value
-    }));
-  };
-
-  const handleSubmitApplication = (e) => {
-    e.preventDefault();
-    console.log('Application submitted:', formData);
-
-    // Simulating fraud detection logic
-    const isFraud = checkForFraud(formData);
-    setFraudResult(isFraud ? 'Fraud Detected!' : 'No Fraud Detected');
+  const handleSubmitApplication = (formData) => {
+    console.log("Application submitted:", formData);
+    alert(`Credit card ${formData.cardName} applied successfully!`);
     setShowForm(false);
   };
 
@@ -47,24 +48,15 @@ const CLoan = () => {
     setShowForm(false);
   };
 
-  const checkForFraud = (data) => {
-    // Sample fraud detection logic based on card location
-    // For simplicity, let's assume that Fraud is detected if the same card is at two locations at the same time.
-    if (data.Location && data.Time_of_Day && data.Fraudulent) {
-      return true; // Fraud is detected
-    }
-    return false; // No fraud
-  };
-
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Header Section */}
       <header className="bg-white shadow-md p-4 flex justify-between items-center">
-        <h1 className="text-xl font-semibold text-gray-800">Credits</h1>
+        <h1 className="text-xl font-semibold text-gray-800">Credit Cards</h1>
         <div className="flex items-center space-x-6">
           {/* Chatbot Icon */}
-          <button 
-            onClick={() => setIsChatOpen(!isChatOpen)} 
+          <button
+            onClick={() => setIsChatOpen(!isChatOpen)}
             className="text-gray-600 hover:text-blue-600 transition"
           >
             <FiMessageCircle size={24} />
@@ -78,146 +70,18 @@ const CLoan = () => {
       </header>
 
       {/* Main Content */}
-      <div className="p-6">
-        <button 
-          onClick={handleApplyLoan}
-          className="bg-blue-500 text-white py-2 px-4 rounded-full"
-        >
-          Apply for Loan
-        </button>
-
-        {/* Loan Application Form */}
-        {showForm && (
-          <form onSubmit={handleSubmitApplication} className="mt-6 p-6 bg-white shadow-lg rounded-lg">
-            <h2 className="text-lg font-semibold mb-4">Loan Application Form</h2>
-
-            <div className="mb-4">
-              <label htmlFor="Transaction_Amount" className="block text-sm font-medium text-gray-700">Transaction Amount</label>
-              <input 
-                type="number" 
-                id="Transaction_Amount" 
-                name="Transaction_Amount"
-                value={formData.Transaction_Amount} 
-                onChange={handleInputChange} 
-                className="mt-1 p-2 border rounded w-full" 
-                required 
-              />
-            </div>
-
-            <div className="mb-4">
-              <label htmlFor="Transaction_Type" className="block text-sm font-medium text-gray-700">Transaction Type</label>
-              <input 
-                type="text" 
-                id="Transaction_Type" 
-                name="Transaction_Type" 
-                value={formData.Transaction_Type}
-                onChange={handleInputChange}
-                className="mt-1 p-2 border rounded w-full" 
-                required 
-              />
-            </div>
-
-            <div className="mb-4">
-              <label htmlFor="Location" className="block text-sm font-medium text-gray-700">Location</label>
-              <input 
-                type="text" 
-                id="Location" 
-                name="Location" 
-                value={formData.Location} 
-                onChange={handleInputChange}
-                className="mt-1 p-2 border rounded w-full" 
-                required 
-              />
-            </div>
-
-            <div className="mb-4">
-              <label htmlFor="Time_of_Day" className="block text-sm font-medium text-gray-700">Time of Day</label>
-              <input 
-                type="text" 
-                id="Time_of_Day" 
-                name="Time_of_Day" 
-                value={formData.Time_of_Day}
-                onChange={handleInputChange}
-                className="mt-1 p-2 border rounded w-full" 
-                required 
-              />
-            </div>
-
-            <div className="mb-4">
-              <label htmlFor="Card_Type" className="block text-sm font-medium text-gray-700">Card Type</label>
-              <input 
-                type="text" 
-                id="Card_Type" 
-                name="Card_Type" 
-                value={formData.Card_Type}
-                onChange={handleInputChange}
-                className="mt-1 p-2 border rounded w-full" 
-                required 
-              />
-            </div>
-
-            <div className="mb-4">
-              <label htmlFor="Previous_Fraud_History" className="block text-sm font-medium text-gray-700">Previous Fraud History</label>
-              <input 
-                type="text" 
-                id="Previous_Fraud_History" 
-                name="Previous_Fraud_History" 
-                value={formData.Previous_Fraud_History}
-                onChange={handleInputChange}
-                className="mt-1 p-2 border rounded w-full" 
-                required 
-              />
-            </div>
-
-            <div className="mb-4">
-              <label htmlFor="Account_Age" className="block text-sm font-medium text-gray-700">Account Age</label>
-              <input 
-                type="number" 
-                id="Account_Age" 
-                name="Account_Age" 
-                value={formData.Account_Age}
-                onChange={handleInputChange}
-                className="mt-1 p-2 border rounded w-full" 
-                required 
-              />
-            </div>
-
-            <div className="mb-4">
-              <label htmlFor="Credit_Utilization" className="block text-sm font-medium text-gray-700">Credit Utilization</label>
-              <input 
-                type="number" 
-                id="Credit_Utilization" 
-                name="Credit_Utilization" 
-                value={formData.Credit_Utilization}
-                onChange={handleInputChange}
-                className="mt-1 p-2 border rounded w-full" 
-                required 
-              />
-            </div>
-
-            <div className="mb-4">
-              <label htmlFor="Fraudulent" className="block text-sm font-medium text-gray-700">Fraudulent</label>
-              <input 
-                type="text" 
-                id="Fraudulent" 
-                name="Fraudulent" 
-                value={formData.Fraudulent}
-                onChange={handleInputChange}
-                className="mt-1 p-2 border rounded w-full" 
-                required 
-              />
-            </div>
-
-            <div className="flex space-x-4">
-              <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded">Submit</button>
-              <button type="button" onClick={handleCancelApplication} className="bg-red-500 text-white py-2 px-4 rounded">Cancel</button>
-            </div>
-          </form>
-        )}
-
-        {fraudResult && (
-          <div className="mt-6 text-center text-xl font-semibold text-red-600">
-            {fraudResult}
+      <div className="mt-8 p-4">
+        {showForm ? (
+          <CreditCardApplicationForm
+            cardName={selectedCard}
+            onSubmit={handleSubmitApplication}
+            onCancel={handleCancelApplication}
+          />
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {creditCardOffers.map((offer, index) => (
+              <CreditCardCard key={index} {...offer} onApply={handleApplyCard} />
+            ))}
           </div>
         )}
       </div>
@@ -238,4 +102,7 @@ const CLoan = () => {
   );
 };
 
-export default CLoan;
+export default CreditCardOffers;
+
+
+
