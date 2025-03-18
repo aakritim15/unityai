@@ -18,12 +18,13 @@ export default function AccountInfo() {
     phone: "",
     dob: "",
     age: "",
-    aadhaar: "",
+    pancard: "", // Added Pancard field
     salary: "",
     balance: 50000, // Default balance
     bankaccount: "",
     accounttype: "",
     employmentType: "",
+    pincode: "", // Added Pincode field
   });
 
   const handleChange = (e) => {
@@ -75,18 +76,19 @@ export default function AccountInfo() {
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">
-                {[
+                {[ 
                   { label: "Full Name", name: "name" },
                   { label: "Username", name: "username" },
                   { label: "Email", name: "email", type: "email" },
                   { label: "Phone Number", name: "phone", type: "tel" },
                   { label: "Date of Birth", name: "dob", type: "date" },
                   { label: "Age", name: "age", type: "number" },
-                  { label: "Aadhaar Number", name: "aadhaar" },
+                  { label: "Pancard Number", name: "pancard" }, // Pancard field
                   { label: "Salary", name: "salary", type: "number" },
                   { label: "Bank Account", name: "bankaccount", type: "number" },
                   { label: "Account Type", name: "accounttype" },
                   { label: "Employment Type", name: "employmentType" },
+                  { label: "Pincode", name: "pincode", type: "text" }, // Pincode field
                 ].map(({ label, name, type = "text" }) => (
                   <div key={name} className="w-full">
                     <label className="block text-sm font-medium mb-1">{label}</label>

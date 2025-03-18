@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import { FiMessageCircle, FiUser } from "react-icons/fi";
 import LoanApplicationForm from "../components/LoanApplicationForm";
+import LoanCard from "../components/LoanCard";
 
 const loanOffers = [
-  { amount: 200000, interestRate: 10, tenure: 1 },
-  { amount: 500000, interestRate: 15, tenure: 2 },
-  { amount: 750000, interestRate: 12, tenure: 3 },
-  { amount: 100000, interestRate: 10.5, tenure: 4 },
-  { amount: 150000, interestRate: 9, tenure: 5 },
-  { amount: 200000, interestRate: 8.5, tenure: 6 },
+  { loanType: "Home", amount: 200000, interestRate: 10, tenure: 1 },
+  { loanType: "Car", amount: 500000, interestRate: 15, tenure: 2 },
+  { loanType: "Personal", amount: 750000, interestRate: 12, tenure: 3 },
+  { loanType: "Education", amount: 100000, interestRate: 10.5, tenure: 4 },
+  { loanType: "Business", amount: 150000, interestRate: 9, tenure: 5 },
 ];
 
-const LoanCard = ({ amount, interestRate, tenure, onApply }) => {
+/* const LoanCard = ({ amount, interestRate, tenure, onApply }) => {
   return (
     <div className="bg-white shadow-md rounded-2xl p-5 w-64 text-center transition-transform transform hover:scale-105">
       <h3 className="text-lg font-semibold text-gray-700">Loan Offer</h3>
@@ -26,7 +26,7 @@ const LoanCard = ({ amount, interestRate, tenure, onApply }) => {
       </button>
     </div>
   );
-};
+}; */
 
 const LoanOffers = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
