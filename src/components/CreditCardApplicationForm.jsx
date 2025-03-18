@@ -1,17 +1,17 @@
 import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
-const CreditCardApplicationForm = ({ cardName, onSubmit, onCancel }) => {
-  const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
-    phone: "",
-    income: "",
-    employmentStatus: "",
-    cardName: cardName,
-  });
+const CreditCardApplicationForm = ({ transaction, onSubmit, onCancel }) => {
+  const [formData, setFormData] = useState(transaction);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value, type, checked } = e.target;
+    setFormData({
+      ...formData,
+      [name]: type === "checkbox" ? checked : value,
+    });
   };
 
   const handleSubmit = (e) => {
@@ -20,88 +20,55 @@ const CreditCardApplicationForm = ({ cardName, onSubmit, onCancel }) => {
   };
 
   return (
-    <div className="max-w-lg mx-auto bg-white shadow-md rounded-lg p-6 mt-6">
-      <h2 className="text-2xl font-semibold text-gray-800 mb-4">Apply for {cardName}</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label className="block text-gray-700">Full Name</label>
-          <input
-            type="text"
-            name="fullName"
-            value={formData.fullName}
-            onChange={handleChange}
-            className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-          />
+    <div className="p-6 bg-white shadow-lg rounded-lg max-w-md mx-auto">
+      <h2 className="text-xl font-semibold text-gray-800 mb-4">Transaction Analysis</h2>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <Label>Transaction Amount (₹)</Label>
+          <Input type="number" name="amount" value={formData.amount} onChange={handleChange} required />
         </div>
-
-        <div className="mb-4">
-          <label className="block text-gray-700">Email</label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-          />
-        </div>
-
-        <div className="mb-4">
-          <label className="block text-gray-700">Phone</label>
-          <input
-            type="tel"
-            name="phone"
-            value={formData.phone}
-            onChange={handleChange}
-            className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-          />
-        </div>
-
-        <div className="mb-4">
-          <label className="block text-gray-700">Annual Income (₹)</label>
-          <input
-            type="number"
-            name="income"
-            value={formData.income}
-            onChange={handleChange}
-            className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-          />
-        </div>
-
-        <div className="mb-4">
-          <label className="block text-gray-700">Employment Status</label>
-          <select
-            name="employmentStatus"
-            value={formData.employmentStatus}
-            onChange={handleChange}
-            className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-          >
-            <option value="">Select</option>
-            <option value="Salaried">Salaried</option>
-            <option value="Self-Employed">Self-Employed</option>
-            <option value="Student">Student</option>
-            <option value="Retired">Retired</option>
+        <div>
+          <Label>Transaction Type</Label>
+          <select name="transactionType" value={formData.transactionType} onChange={handleChange} className="w-full p-2 border rounded-md">
+            <option value="Online">Online</option>
+            <option value="POS">POS</option>
+            <option value="ATM">ATM</option>
           </select>
         </div>
-
+        <div>
+          <Label>Time</Label>
+          <Input type="datetime-local" name="time" value={formData.time} onChange={handleChange} required />
+        </div>
+        <div>
+          <Label>Location</Label>
+          <Input type="text" name="location" value={formData.location} onChange={handleChange} required />
+        </div>
+        <div>
+          <Label>Previous Fraudulent History</Label>
+          <input type="checkbox" name="fraudHistory" checked={formData.fraudHistory} onChange={handleChange} />
+        </div>
+        <div>
+          <Label>Account Type</Label>
+          <select name="accountType" value={formData.accountType} onChange={handleChange} className="w-full p-2 border rounded-md">
+            <option value="Savings">Savings</option>
+            <option value="Current">Current</option>
+          </select>
+        </div>
+        <div>
+          <Label>Account Age (Years)</Label>
+          <Input type="number" name="accountAge" value={formData.accountAge} onChange={handleChange} required />
+        </div>
+        <div>
+          <Label>Credit Utilization (%)</Label>
+          <Input type="number" name="creditUtilisation" value={formData.creditUtilisation} onChange={handleChange} required />
+        </div>
         <div className="flex justify-between">
-          <button
-            type="button"
-            onClick={onCancel}
-            className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600"
-          >
+          <Button type="submit" className="bg-black text-white hover:bg-gray-800">
+            Submit
+          </Button>
+          <Button type="button" onClick={onCancel} className="bg-black text-white hover:bg-red-700">
             Cancel
-          </button>
-          <button
-            type="submit"
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
-          >
-            Apply Now
-          </button>
+          </Button>
         </div>
       </form>
     </div>

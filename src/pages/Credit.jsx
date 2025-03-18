@@ -2,24 +2,23 @@ import React, { useState } from "react";
 import { FiMessageCircle, FiUser } from "react-icons/fi";
 import CreditCardApplicationForm from "../components/CreditCardApplicationForm";
 
-const creditCardOffers = [
-  { name: "Platinum Card", limit: 500000, interestRate: 14, annualFee: 3000 },
-  { name: "Gold Card", limit: 300000, interestRate: 12, annualFee: 2000 },
-  { name: "Silver Card", limit: 150000, interestRate: 10, annualFee: 1000 },
-  { name: "Titanium Card", limit: 700000, interestRate: 16, annualFee: 4000 },
-  { name: "Business Card", limit: 1000000, interestRate: 18, annualFee: 5000 },
+const transactions = [
+  { amount: 10000, transactionType: "Online", time: "2025-03-15T10:30", location: "Mumbai", fraudHistory: false, accountType: "Savings", accountAge: 5, creditUtilisation: 45 },
+  { amount: 25000, transactionType: "POS", time: "2025-03-14T15:00", location: "Delhi", fraudHistory: true, accountType: "Current", accountAge: 3, creditUtilisation: 70 },
+  { amount: 5000, transactionType: "ATM", time: "2025-03-13T09:20", location: "Bangalore", fraudHistory: false, accountType: "Savings", accountAge: 7, creditUtilisation: 30 },
 ];
 
-const CreditCardCard = ({ name, limit, interestRate, annualFee, onApply }) => {
+const CreditCardTransactionCard = ({ amount, transactionType, time, location, onApply }) => {
   return (
     <div className="bg-white shadow-md rounded-2xl p-5 w-64 text-center transition-transform transform hover:scale-105">
-      <h3 className="text-lg font-semibold text-gray-700">{name}</h3>
-      <p className="text-2xl font-bold text-blue-600 mt-2">Limit: ₹{limit.toLocaleString()}</p>
-      <p className="text-gray-600 text-sm mt-1">Interest Rate: {interestRate}%</p>
-      <p className="text-gray-600 text-sm">Annual Fee: ₹{annualFee}</p>
+      <h3 className="text-lg font-semibold text-gray-700">Transaction</h3>
+      <p className="text-2xl font-bold text-blue-600 mt-2">₹{amount.toLocaleString()}</p>
+      <p className="text-gray-600 text-sm">Type: {transactionType}</p>
+      <p className="text-gray-600 text-sm">Time: {new Date(time).toLocaleString()}</p>
+      <p className="text-gray-600 text-sm">Location: {location}</p>
       <button
         className="bg-black text-white px-4 py-2 rounded-lg mt-3 hover:bg-gray-800"
-        onClick={() => onApply(name)}
+        onClick={() => onApply(amount)}
       >
         Apply Now
       </button>
@@ -30,17 +29,17 @@ const CreditCardCard = ({ name, limit, interestRate, annualFee, onApply }) => {
 const CreditCardOffers = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [showForm, setShowForm] = useState(false);
-  const [selectedCard, setSelectedCard] = useState("");
+  const [selectedTransaction, setSelectedTransaction] = useState(null);
 
-  const handleApplyCard = (cardName) => {
-    setSelectedCard(cardName);
+  const handleApplyTransaction = (transaction) => {
+    setSelectedTransaction(transaction);
     setShowForm(true);
     window.scrollTo(0, 0);
   };
 
   const handleSubmitApplication = (formData) => {
     console.log("Application submitted:", formData);
-    alert(`Credit card ${formData.cardName} applied successfully!`);
+    alert(`Transaction of ₹${formData.amount} analyzed successfully!`);
     setShowForm(false);
   };
 
@@ -52,7 +51,7 @@ const CreditCardOffers = () => {
     <div className="min-h-screen bg-gray-100">
       {/* Header Section */}
       <header className="bg-white shadow-md p-4 flex justify-between items-center">
-        <h1 className="text-xl font-semibold text-gray-800">Credit Cards</h1>
+        <h1 className="text-xl font-semibold text-gray-800">Credit Card Transactions</h1>
         <div className="flex items-center space-x-6">
           {/* Chatbot Icon */}
           <button
@@ -73,14 +72,14 @@ const CreditCardOffers = () => {
       <div className="mt-8 p-4">
         {showForm ? (
           <CreditCardApplicationForm
-            cardName={selectedCard}
+            transaction={selectedTransaction}
             onSubmit={handleSubmitApplication}
             onCancel={handleCancelApplication}
           />
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {creditCardOffers.map((offer, index) => (
-              <CreditCardCard key={index} {...offer} onApply={handleApplyCard} />
+            {transactions.map((transaction, index) => (
+              <CreditCardTransactionCard key={index} {...transaction} onApply={() => handleApplyTransaction(transaction)} />
             ))}
           </div>
         )}
@@ -103,6 +102,3 @@ const CreditCardOffers = () => {
 };
 
 export default CreditCardOffers;
-
-
-

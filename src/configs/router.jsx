@@ -5,6 +5,7 @@ import Dashboard from "../pages/Dashboard";
 import Payments from "@/pages/Payments";
 import Transactions from "@/pages/Transactions";
 import Loans from "@/pages/Loans";
+import Credit from "@/pages/Credit";
 import AccountInfo from "@/pages/AccountInfo";
 import Settings from "@/pages/Settings";
 import NotFound from "@/pages/NotFound";
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: "loans",
         element: <Loans />,
+      },
+      {
+        path:"credit",
+        element:<Credit/>,
       },
       {
         path: "accountinfo",
