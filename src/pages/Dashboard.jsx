@@ -1,10 +1,10 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { PieChart, Pie, Tooltip, Cell } from "recharts";
-import { FiMessageCircle, FiUser } from "react-icons/fi"; // Chatbot & Account Icons
+import { FiMessageCircle, FiUser } from "react-icons/fi";
 import { useState } from "react";
+import Chatbot from "./Chatbot"; // Ensure this is imported correctly
 
-// Updated spendingData with matching fields
 const spendingData = {
   shopping: 3,
   travel: 5,
@@ -14,7 +14,6 @@ const spendingData = {
   entertainment: 2,
 };
 
-// Updated data to match spendingData categories
 const data = [
   { name: "Shopping", value: 300 },
   { name: "Travel", value: 500 },
@@ -24,13 +23,11 @@ const data = [
   { name: "Entertainment", value: 250 },
 ];
 
-
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#A28EFF"];
 
 function Dashboard() {
   const [isChatOpen, setIsChatOpen] = useState(false);
 
-  // Logic to generate recommendations based on user spending data
   const generateRecommendations = (spendingData) => {
     let recommendations = [];
 
@@ -48,29 +45,23 @@ function Dashboard() {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      {/* Header Section */}
       <header className="bg-white shadow-md p-4 flex justify-between items-center">
         <h1 className="text-xl font-semibold text-gray-800">Dashboard</h1>
         <div className="flex items-center space-x-6">
-          {/* Chatbot Icon */}
           <button 
             onClick={() => setIsChatOpen(!isChatOpen)} 
             className="text-gray-600 hover:text-blue-600 transition"
           >
             <FiMessageCircle size={24} />
           </button>
-
-          {/* Account Icon */}
           <button className="text-gray-600 hover:text-blue-600 transition">
             <FiUser size={24} />
           </button>
         </div>
       </header>
 
-      {/* Spacing after Header */}
       <div className="mt-6 px-4 max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         
-        {/* Balance Box */}
         <Card className="p-4 h-28 flex items-center justify-center shadow-sm">
           <CardContent className="text-center">
             <h2 className="text-md font-medium">Balance</h2>
@@ -78,7 +69,6 @@ function Dashboard() {
           </CardContent>
         </Card>
 
-        {/* CIBIL Score Box */}
         <Card className="p-4 h-28 flex items-center justify-center shadow-sm">
           <CardContent className="text-center">
             <h2 className="text-md font-medium">CIBIL Score</h2>
@@ -86,7 +76,6 @@ function Dashboard() {
           </CardContent>
         </Card>
 
-        {/* Cashback */}
         <Card className="p-4 h-28 flex items-center justify-center shadow-sm">
           <CardContent className="text-center">
             <h2 className="text-md font-medium">Cashback Earned</h2>
@@ -94,7 +83,6 @@ function Dashboard() {
           </CardContent>
         </Card>
 
-        {/* Monthly Spending (Pie Chart) */}
         <Card className="p-4 shadow-sm flex justify-center items-center">
           <CardContent className="w-full text-center">
             <h2 className="text-md font-medium mb-2">Monthly Spending</h2>
@@ -111,7 +99,6 @@ function Dashboard() {
           </CardContent>
         </Card>
 
-        {/* Recent Transactions List */}
         <Card className="p-4 shadow-sm lg:col-span-2">
           <CardContent>
             <h2 className="text-md font-medium mb-3">Recent Transactions</h2>
@@ -132,7 +119,6 @@ function Dashboard() {
           </CardContent>
         </Card>
 
-        {/* Loan Section */}
         <Card className="p-4 shadow-sm lg:col-span-2">
           <CardContent className="flex justify-between items-center">
             <div>
@@ -143,9 +129,8 @@ function Dashboard() {
           </CardContent>
         </Card>
 
-        {/* Recommended Credit Cards Section */}
         {recommendedCards.length > 0 && (
-          <Card className="flex justify-items-center ">
+          <Card className="flex justify-items-center">
             <CardContent>
               <h2 className="text-md font-medium mb-3">Recommended Credit Cards</h2>
               <ul className="mt-2 space-y-2 text-sm">
@@ -153,13 +138,11 @@ function Dashboard() {
                   <li key={index} className="text-gray-700">{card}</li>
                 ))}
               </ul>
-              
             </CardContent>
           </Card>
         )}
       </div>
 
-      {/* Chatbot Modal */}
       {isChatOpen && (
         <div className="fixed bottom-5 right-5 bg-white shadow-lg border rounded-lg p-4 w-80">
           <div className="flex justify-between items-center">
@@ -168,7 +151,7 @@ function Dashboard() {
               ✖
             </button>
           </div>
-          <Chatbot /> {/* Embed the Chatbot component here */}
+          <Chatbot />
         </div>
       )}
     </div>
