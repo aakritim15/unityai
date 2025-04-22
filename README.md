@@ -1,12 +1,25 @@
-# React + Vite
+"UnityAi" is an AI-powered banking website designed to enhance user experience and improve banking operations by leveraging GenAI for customer analytics and fraud detection. It provides a user-friendly interface and integrates AI models to offer personalized financial recommendations and detect fraudulent transactions in real-time.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Key Features:
 
-Currently, two official plugins are available:
+User Authentication: Secure login and sign-up with session management.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+User Dashboard: Displays account balance, recent transactions, and spending analytics.
 
-## Expanding the ESLint configuration
+AI-Based Fraud Detection: Real-time fraud detection using Random Forest to identify unauthorized transactions and frauds (e.g., loan and credit card fraud).
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Personalized Financial Recommendations: AI-driven insights for budgeting, investment opportunities, and spending optimizations based on user data.
+
+Chatbot Integration: Powered by Gemini API for personalized customer assistance.
+
+Data Visualization: Spending behavior and personalized financial recommendations presented through pie charts and other visualizations.
+
+Tech Stack:
+
+Frontend: React, Tailwind CSS
+
+Backend: Firebase, Node.js, Express
+
+AI Models: Random Forest, Gemini API for Chatbot
+
+Authentication: Firebase Authentication
